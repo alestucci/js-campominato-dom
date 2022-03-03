@@ -100,6 +100,10 @@ main {
     color: white;
 }
 
+.bomb {
+    background-color: red;
+}
+
 .lose {
     position: absolute;
     top: 50%;
@@ -112,7 +116,7 @@ main {
     text-align: center;
     opacity: 0;
     z-index: -1;
-    transition: all ease-in .2s .5s;
+    transition: all ease-in .4s .2s;
     border-radius: 20px;
 }
 
