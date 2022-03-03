@@ -28,7 +28,7 @@ function playGame() {
 			break;
 		case "hard":
 			squares = 49;
-			bombs = 14;
+			bombs = 45; //aumentato per prove veloci
 			columns = 7;
 			field.classList.add("field-49");
 			break;
@@ -60,11 +60,17 @@ function playGame() {
 		box.innerHTML = index;
 		box.addEventListener("click", function () {
 			squareSelection(box);
-			const aroundBombs = checkBomb(index, columns, bombsArray, cellSelected);
+			const aroundBombs = checkBomb(
+				index,
+				columns,
+				bombsArray,
+				cellSelected,
+				box
+			);
 			box.innerHTML = aroundBombs;
+			selectToArray(index, bombsArray, cellSelected);
 			checkArray(cellSelected, squares, bombs);
-			selectToArray(index, cellSelected);
-			console.log(cellSelected.length);
+			console.log(cellSelected.length, cellSelected);
 		});
 		field.append(box);
 	}
@@ -73,6 +79,7 @@ function playGame() {
 function squareSelection(target) {
 	target.classList.toggle("selected");
 }
+
 const scoreWin = document.getElementById("score-win");
 const loseMessageWindow = document.querySelector(".lose");
 const winMessageWindow = document.querySelector(".win");
@@ -95,17 +102,19 @@ function squareSelection(target) {
 	target.classList.toggle("selected");
 }
 
-function selectToArray(value, array) {
-	let indexSelection = array.indexOf(value);
-	if (indexSelection == -1) {
-		array.push(value);
-	} else {
-		array.splice(indexSelection, 1);
+function selectToArray(value, arrayBombs, arraySelected) {
+	if (arrayBombs.indexOf(value) == -1) {
+		let indexSelection = arraySelected.indexOf(value);
+		if (indexSelection == -1) {
+			arraySelected.push(value);
+		} else {
+			arraySelected.splice(indexSelection, 1);
+		}
 	}
 }
 
-function checkBomb(value, columns, arrayBombs, arraySelected) {
-	let aroundBombs = "";
+function checkBomb(value, columns, arrayBombs, arraySelected, square) {
+	let aroundBombs = 0;
 	// console.log(value - (columns - 1));
 	// console.log(value - columns);
 	// console.log(value - (columns + 1));
@@ -120,31 +129,34 @@ function checkBomb(value, columns, arrayBombs, arraySelected) {
 		const scoreLose = document.getElementById("score-lose");
 		scoreLose.innerHTML = arraySelected.length;
 		loseMessage.classList.add("active");
+		square.classList.add("bomb");
+		square.removeEventListener("click", function () {});
 	} else {
-		// if (arrayBombs.indexOf(value - (columns - 1)) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value - columns) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value - (columns + 1)) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value - 1) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value + 1) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value + (columns - 1)) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value + columns) > -1) {
-		// 	aroundBombs += 1;
-		// }
-		// if (arrayBombs.indexOf(value + (columns + 1)) > -1) {
-		// 	aroundBombs += 1;
-		// }
+		//DA INSERIRE CONDIZIONI PER QUELLE LUNGO I BORDI
+		if (arrayBombs.indexOf(value - (columns - 1)) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value - columns) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value - (columns + 1)) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value - 1) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value + 1) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value + (columns - 1)) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value + columns) > -1) {
+			aroundBombs += 1;
+		}
+		if (arrayBombs.indexOf(value + (columns + 1)) > -1) {
+			aroundBombs += 1;
+		}
 	}
 	return aroundBombs;
 }
@@ -157,5 +169,3 @@ function checkArray(arraySelected, squares, bombs) {
 		scoreWin.innerHTML = arraySelected.length;
 	}
 }
-
-// function score()
