@@ -1,0 +1,98 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: sans-serif;
+}
+
+header {
+    height: 6em;
+    background-color: white;
+}
+
+footer {
+    height: 3em;
+    background-color: white;
+}
+
+main {
+    height: calc(100vh - 9em);
+    width: 100%;
+    background-color: aquamarine;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow: scroll;
+}
+
+.field {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.field-100 {
+    width: calc(30em + 2px);
+    height: calc(30em + 2px);
+    border: 1px solid black;
+}
+
+.field-81 {
+    width: calc(27em + 2px);
+    height: calc(27em + 2px);
+    border: 1px solid black;
+}
+
+.field-49 {
+    width: calc(21em + 2px);
+    height: calc(21em + 2px);
+    border: 1px solid black;
+}
+
+.container {
+    height: 100%;
+    width: min(960px, 80%);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+.choice > * {
+    margin: 0 .2em;
+    height: 100%;
+}
+
+#difficulty {
+    text-align: center;
+    padding: .4em;
+    width: 10em;
+
+}
+
+#play {
+    padding: .4em 1em;
+}
+
+.square {
+    width: 3em;
+    height: 3em;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.selected {
+    background-color: #6495ed;
+    color: white;
+}
